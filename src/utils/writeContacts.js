@@ -1,11 +1,12 @@
 import { PATH_DB } from '../constants/contacts.js';
-const fs = require("node: fs/promises");
+import { writeFile } from "node:fs/promises";
 
 
 export const writeContacts = async (updatedContacts) => {
     try {
-        const data = await fs.writeFile(PATH_DB, updatedContacts, { encoding: 'utf-8' });
-        return data;
+        const data = JSON.stringify(updatedContacts, null, 2);
+       await writeFile(PATH_DB, data, { encoding: 'utf-8' });
+    //    await writeFile('src/db/db.json', data, { encoding: 'utf-8' });
     } catch (error) {
         console.error(error);
     }
